@@ -1,0 +1,38 @@
+<header class="bg-[#15293d] p-4 sticky top-0 z-50 shadow-md">
+  <nav class="container mx-auto flex justify-between items-center">
+    <!-- Logo alineado a la izquierda -->
+    <a href="/">
+      <img src="/images/logo.png" alt="ADR Collections Logo" class="h-12 md:h-16 object-contain" />
+    </a>
+
+    <!-- Botón de menú, visible solo en móviles -->
+    <button id="nav-toggle" class="text-white focus:outline-none md:hidden">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+
+    <!-- Menú de navegación, desplegable en móviles y horizontal en pantallas grandes -->
+    <ul id="nav-menu" class="hidden md:flex md:space-x-8 absolute md:relative top-full left-0 w-full bg-[#15293d] md:bg-transparent md:w-auto flex-col md:flex-row">
+      <li><a href="/" class="block py-2 px-4 hover:text-gray-300">Inicio</a></li>
+      <li><a href="/productos" class="block py-2 px-4 hover:text-gray-300">Productos</a></li>
+      <li><a href="/nosotros" class="block py-2 px-4 hover:text-gray-300">Sobre Nosotros</a></li>
+      <li><a href="/contacto" class="block py-2 px-4 hover:text-gray-300">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Script para alternar la visibilidad del menú en dispositivos móviles -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+
+  // Verificar si 'navToggle' y 'navMenu' existen antes de agregar el evento
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('hidden'); // Muestra u oculta el menú
+    });
+  }
+});
+</script>
