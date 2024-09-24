@@ -37,9 +37,6 @@ jobs:
       - name: Build the project
         run: npm run build  
 
-      - name: Preview the build
-        run: npm run preview 
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
