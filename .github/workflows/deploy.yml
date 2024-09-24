@@ -1,20 +1,15 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches: [main]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
-# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -29,13 +24,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the project
-        run: npm run build  
+        run: npm run build
+
+      - name: Upload the build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-build
+          path: ./dist
 
   deploy:
     needs: build
@@ -44,6 +45,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Download the build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-build
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
