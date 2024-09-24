@@ -1,59 +1,36 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
   push:
-    branches: [main]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+    branches: [main]  # O el nombre de la rama que utilices
   workflow_dispatch:
 
-# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v2
+      - name: Checkout your repository
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'  # Cambia a la versión que necesites
 
       - name: Install dependencies
-        run: npm install  # Instalar las dependencias de tu proyecto
+        run: npm install
 
       - name: Build the project
-        run: npm run build  # Construir el proyecto
-
-      - name: Upload the build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-build  
-          path: ./dist  # Ajusta el camino si es necesario
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Download the build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: my-build 
+        run: npm run build
 
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
