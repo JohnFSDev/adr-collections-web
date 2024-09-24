@@ -1,6 +1,8 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches: [main]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
@@ -27,16 +29,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "node"
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the project
-        run: npm run build
+        run: npm run build  
 
       - name: Preview the build
-        run: npm run preview
+        run: npm run preview 
 
   deploy:
     needs: build
