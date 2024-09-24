@@ -1,35 +1,124 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import ProductShowcase from '../components/ProductShowcase.astro';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ProductShowcase from "../components/ProductShowcase.astro";
+import { fade } from "astro:transitions";
 ---
 
 <Layout title="ADR Collections">
   <Header />
-  
+
   <main>
-    <section class="bg-[#1e3951] text-white py-20 md:py-32">
-      <div class="container mx-auto px-4 text-center">
-        <img src="/images/logo.png" alt="ADR Collections Logo" class="mx-auto mb-8 w-48 md:w-64">
-        <h1 class="text-4xl md:text-6xl font-bold mb-6">Bienvenido a ADR Collections</h1>
-        <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">Descubre nuestra exclusiva colección de productos de alta calidad para tu hogar</p>
-        <a href="#productos" class="bg-white text-[#1e3951] py-3 px-8 rounded-full text-lg font-semibold hover:bg-gray-200 transition duration-300 inline-block">
-          Ver Productos
-        </a>
+    <section
+      class="bg-gradient-to-b from-[#1e3951] to-[#16334a] text-white py-20 md:py-32 transition-opacity duration-1000 ease-in"
+    >
+      <div
+        class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+      >
+        <!-- Columna 1: Información de bienvenida -->
+        <div class="text-center md:text-left animate-fadeIn">
+          <img
+            src="/images/logo.png"
+            alt="ADR Collections Logo"
+            class="mx-auto mb-8 w-48 md:w-64 md:mx-0 transition-transform duration-500 hover:scale-105"
+          />
+          <h1
+            class="text-4xl md:text-6xl font-bold mb-4 tracking-tight leading-tight"
+          >
+            Bienvenido a ADR Collections
+          </h1>
+          <h2 class="text-2xl md:text-3xl mb-6 font-light leading-relaxed">
+            Elevando tu hogar con estilo y calidad
+          </h2>
+          <p
+            class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto md:mx-0 leading-relaxed opacity-90"
+          >
+            Descubre nuestra exclusiva colección de productos de alta calidad
+            para transformar tu espacio en un refugio de confort y elegancia.
+          </p>
+          <div class="space-x-4 mt-6">
+            <a
+              href="#productos"
+              class="bg-transparent border-2 border-white text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-white hover:text-[#1e3951] transition-transform duration-300 inline-block hover:scale-105"
+            >
+              Ver Productos
+            </a>
+            <a
+              href="#contacto"
+              class="bg-transparent border-2 border-white text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-white hover:text-[#1e3951] transition-transform duration-300 inline-block hover:scale-105"
+            >
+              Contáctanos
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna 2: Video de YouTube (Short) -->
+        <div class="flex flex-col items-center">
+          <h3 class="text-2xl font-semibold mb-4">
+            Descubre nuestra colección
+          </h3>
+          <div
+            class="relative w-full rounded-lg overflow-hidden shadow-lg"
+            style="padding-top: 56.25%;"
+          >
+            <iframe
+              src="https://www.youtube.com/embed/LP-hiOHVbKE"
+              class="absolute top-0 left-0 w-full h-full"
+              style="border:none;overflow:hidden"
+              allowfullscreen
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            ></iframe>
+          </div>
+        </div>
       </div>
     </section>
 
     <ProductShowcase />
 
-    <section class="bg-[#15293d] text-white py-16 md:py-24">
+    <section id="contacto" class="bg-[#15293d] text-white py-16 md:py-24">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">Visítanos en nuestra tienda</h2>
-        <p class="text-xl mb-2">Puerto tampico #64, Ciudad de México, México</p>
-        <p class="text-xl mb-8">Lunes a Viernes, 10:00 AM - 8:00 PM</p>
-        <a href="/contacto" class="bg-[#1e3951] text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-[#2c5474] transition duration-300 inline-block">
-          Contáctanos
-        </a>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          Visítanos en nuestra tienda
+        </h2>
+
+        <p class="text-xl mb-2">Puerto Tampico #64, Ciudad de México, México</p>
+        <p class="text-xl mb-4">Lunes a Viernes, 10:00 AM - 8:00 PM</p>
+
+        <!-- Sección del teléfono con ícono -->
+        <div class="flex justify-center items-center space-x-2 mb-8">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 5a2 2 0 012-2h3a2 2 0 012 2v.5c0 .28-.11.53-.29.71l-2.29 2.29a2 2 0 000 2.83l1.42 1.42a2 2 0 002.83 0l2.29-2.29a1 1 0 011.42 0l1.71 1.71a1 1 0 010 1.42L8.82 20.41a2 2 0 01-2.83 0L4.59 19a2 2 0 010-2.83L7.5 13.5a1 1 0 000-1.42l-2.29-2.29A1 1 0 015 9V6a2 2 0 00-2-2z"
+            ></path>
+          </svg>
+          <a href="tel:+525560996032" class="text-xl hover:underline">
+            Teléfono: +52 55 6099 6032
+          </a>
+        </div>
+
+        <!-- Mapa -->
+        <div class="relative mb-12">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.387203446149!2d-99.07114568468239!3d19.497267886848215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fba9b5ae7a25%3A0x75e23e6eb2ef6d30!2sPto.%20Tampico%2064%2C%20Casas%20Alem%C3%A1n%2C%20Gustavo%20A.%20Madero%2C%2007580%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX%2C%20M%C3%A9xico!5e0!3m2!1ses!2sdo!4v1695481087929!5m2!1ses!2sdo"
+            width="100%"
+            height="300"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            class="rounded-lg shadow-lg border-4 border-[#1e3951]"
+          >
+          </iframe>
+        </div>
       </div>
     </section>
   </main>

@@ -1,19 +1,21 @@
 ---
 const products = [
-  { name: "Bolso Elegante", image: "/api/placeholder/300/200", description: "Bolso de cuero de alta calidad" },
-  { name: "Cartera Moderna", image: "/api/placeholder/300/200", description: "Cartera espaciosa y duradera" },
-  { name: "Taza Artesanal", image: "/api/placeholder/300/200", description: "Taza hecha a mano por artesanos locales" },
-  { name: "Termo de Diseño", image: "/api/placeholder/300/200", description: "Termo con aislamiento térmico de larga duración" },
+  { name: "Bolso Elegante", image: "/images/bolso.png", description: "Bolso de cuero de alta calidad" },
+  { name: "Cartera Moderna", image: "/images/cartera.png", description: "Cartera espaciosa y duradera" },
+  { name: "Taza Artesanal", image: "/images/tazaStarWars.png", description: "Taza hecha a mano por artesanos locales" },
+  { name: "Termo de Diseño", image: "/images/termo.png", description: "Termo con aislamiento térmico de larga duración" },
 ];
 ---
 
-<section class="py-16 bg-[#1a3346]">
+<section id="productos" class="py-16 bg-[#1a3346]">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Nuestros Productos Destacados</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       {products.map((product) => (
         <div class="bg-[#15293d] rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
-          <img src={product.image} alt={product.name} class="w-full h-48 object-cover" />
+          <div class="h-64 w-full">
+            <img src={product.image} alt={product.name} class="w-full h-full object-cover" />
+          </div>
           <div class="p-6">
             <h3 class="text-xl font-semibold mb-2">{product.name}</h3>
             <p class="text-gray-300 mb-4">{product.description}</p>
