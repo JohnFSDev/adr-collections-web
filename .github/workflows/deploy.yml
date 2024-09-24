@@ -1,36 +1,56 @@
 name: Deploy Astro to GitHub Pages
 
 on:
+  # Ejecuta el flujo de trabajo cada vez que se haga un push a la rama `main`
   push:
-    branches:
-      - main
+    branches: [main]
+  # Permite ejecutar el flujo manualmente desde la pestaña de Actions en GitHub
+  workflow_dispatch:
+
+# Permisos necesarios para hacer despliegue
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite solo un despliegue a la vez
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Check out the repository
-        uses: actions/checkout@v3
+      # Step 1: Clonar el repositorio
+      - name: Checkout your repository using git
+        uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js (v18 or your preferred version)
+      # Step 2: Configurar Node.js (v16 o superior compatible con Astro)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 16
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Build the Astro project
-      - name: Build the project
-        run: npm run build
-
-      # Step 5: Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # Step 3: Instalar dependencias y construir el proyecto
+      - name: Install, build, and upload your site output
+        uses: withastro/action@v0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist # La carpeta de salida donde Astro genera los archivos estáticos
+          # Path es opcional si el proyecto está en la raíz
+          # Puedes especificar la versión de Node si es diferente
+          node-version: 16
+          package-manager: npm # O yarn si estás usando Yarn
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # Step 4: Desplegar el sitio en GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
