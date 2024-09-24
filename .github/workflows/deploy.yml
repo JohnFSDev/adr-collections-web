@@ -24,7 +24,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18"
+          node-version: '18'  # O la versión que estés utilizando
 
       - name: Install dependencies
         run: npm install
@@ -33,8 +33,10 @@ jobs:
         run: npm run build
 
       - name: Upload the build artifact
-        uses: withastro/action@v3
-
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-build
+          path: ./dist  
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -43,7 +45,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Download the build artifact
-        uses: actions/download-artifact@v3 
+        uses: actions/download-artifact@v3
         with:
           name: my-build
 
