@@ -1,19 +1,20 @@
-name: Deploy Astro to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
-  # Ejecuta el flujo de trabajo cada vez que se haga un push a la rama `main`
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches: [main]
-  # Permite ejecutar el flujo manualmente desde la pestaña de Actions en GitHub
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
-# Permisos necesarios para hacer despliegue
+# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Permite solo un despliegue a la vez
+# Allow one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -21,26 +22,15 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Clonar el repositorio
       - name: Checkout your repository using git
         uses: actions/checkout@v2
-
-      # Step 2: Configurar Node.js (v16 o superior compatible con Astro)
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      # Step 3: Instalar dependencias y construir el proyecto
       - name: Install, build, and upload your site output
         uses: withastro/action@v0
-        with:
-          # Path es opcional si el proyecto está en la raíz
-          # Puedes especificar la versión de Node si es diferente
-          node-version: 16
-          package-manager: npm # O yarn si estás usando Yarn
+        # with:
+            # path: . # The root location of your Astro project inside the repository. (optional)
+            # node-version: 16 # The specific version of Node that should be used to build your site. Defaults to 16. (optional)
+            # package-manager: yarn # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
 
   deploy:
     needs: build
@@ -48,9 +38,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      # Step 4: Desplegar el sitio en GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
