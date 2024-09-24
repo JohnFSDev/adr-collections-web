@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]  # O el nombre de la rama que utilices
   workflow_dispatch:
 
 permissions:
@@ -14,13 +14,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v4
+      - name: Checkout your repository
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '18'  # Cambia a la versión que necesites
 
       - name: Install dependencies
         run: npm install
@@ -31,9 +31,9 @@ jobs:
       - name: Upload the build artifact
         uses: actions/upload-artifact@v3
         with:
-          name: my-build 
+          name: my-build  
           path: ./dist  
-
+          
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -44,10 +44,8 @@ jobs:
       - name: Download the build artifact
         uses: actions/download-artifact@v3
         with:
-          name: my-build  
+          name: my-build 
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          path: ./dist  
