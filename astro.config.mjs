@@ -5,5 +5,8 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind()]
+  site: 'https://JohnFSDev.github.io/adr-collections-web/',
+  integrations: [tailwind()],
+  base: '/adr-collections-web/',
+  output: 'static'
 });
