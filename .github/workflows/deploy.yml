@@ -33,10 +33,7 @@ jobs:
         run: npm run build
 
       - name: Upload the build artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-build
-          path: ./dist
+        uses: withastro/action@v3
 
   deploy:
     needs: build
