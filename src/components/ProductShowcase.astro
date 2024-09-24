@@ -1,9 +1,25 @@
 ---
 const products = [
-  { name: "Bolso Elegante", image: "/images/bolso.png", description: "Bolso de cuero de alta calidad" },
-  { name: "Cartera Moderna", image: "/images/cartera.png", description: "Cartera espaciosa y duradera" },
-  { name: "Taza Artesanal", image: "/images/tazaStarWars.png", description: "Taza hecha a mano por artesanos locales" },
-  { name: "Termo de Diseño", image: "/images/termo.png", description: "Termo con aislamiento térmico de larga duración" },
+  {
+    name: "Bolso Elegante",
+    image: "/images/bolso.png",
+    description: "Bolso de cuero de alta calidad",
+  },
+  {
+    name: "Cartera Moderna",
+    image: "/images/cartera.png",
+    description: "Cartera espaciosa y duradera",
+  },
+  {
+    name: "Taza Artesanal",
+    image: "/images/tazaStarWars.png",
+    description: "Taza hecha a mano por artesanos locales",
+  },
+  {
+    name: "Termo de Diseño",
+    image: "/images/termo.png",
+    description: "Termo con aislamiento térmico de larga duración",
+  },
 ];
 ---
 
@@ -12,14 +28,21 @@ const products = [
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Nuestros Productos Destacados</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       {products.map((product) => (
-        <div class="bg-[#15293d] rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
-          <div class="h-64 w-full">
-            <img src={product.image} alt={product.name} class="w-full h-full object-cover" />
+        <div class="bg-[#15293d] rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col h-full">
+          <div class="w-full h-80 overflow-hidden flex items-center justify-center shadow-md">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              class="w-full h-full object-contain bg-white transition-transform duration-300 hover:scale-110"
+            />
           </div>
-          <div class="p-6">
+          <div class="p-6 flex flex-col flex-grow">
             <h3 class="text-xl font-semibold mb-2">{product.name}</h3>
-            <p class="text-gray-300 mb-4">{product.description}</p>
-            <a href="#" class="inline-block bg-[#1e3951] text-white py-2 px-4 rounded-full hover:bg-[#2c5474] transition duration-300">
+            <p class="text-gray-300 mb-4 flex-grow">{product.description}</p>
+            <a 
+              href="#" 
+              class="inline-block bg-[#1e3951] text-white py-2 px-4 rounded-full hover:bg-[#2c5474] transition duration-300 text-center"
+            >
               Ver Detalles
             </a>
           </div>
@@ -28,3 +51,4 @@ const products = [
     </div>
   </div>
 </section>
+
