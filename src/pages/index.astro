@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ProductShowcase from "../components/ProductShowcase.astro";
+import { YouTube } from "@astro-community/astro-embed-youtube";
 ---
 
 <Layout title="ADR Collections">
@@ -13,7 +14,7 @@ import ProductShowcase from "../components/ProductShowcase.astro";
       class="bg-gradient-to-b from-[#1e3951] to-[#16334a] text-white py-20 md:py-32 transition-opacity duration-1000 ease-in"
     >
       <div
-        class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+        class="container mx-auto px-14 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
       >
         <!-- Columna 1: Información de bienvenida -->
         <div class="text-center md:text-left animate-fadeIn">
@@ -54,7 +55,7 @@ import ProductShowcase from "../components/ProductShowcase.astro";
           </div>
         </div>
 
-        <!-- Columna 2: Video de YouTube -->
+        <!-- Columna 2: Video de YouTube optimizado -->
         <div class="flex flex-col items-center md:items-center">
           <h3 class="text-2xl font-semibold mb-4 text-center">
             ¡Descubre todo lo que tenemos disponible para ti!
@@ -63,98 +64,86 @@ import ProductShowcase from "../components/ProductShowcase.astro";
             class="relative w-full max-w-3xl md:max-w-4xl rounded-lg overflow-hidden shadow-lg border border-white/20"
             style="padding-top: 56.25%;"
           >
-            <iframe
-              src="https://www.youtube.com/embed/LP-hiOHVbKE"
+            <YouTube
+              id="LP-hiOHVbKE"
+              poster="https://img.youtube.com/vi/LP-hiOHVbKE/maxresdefault.jpg"
               class="absolute top-0 left-0 w-full h-full rounded-lg"
-              style="border:none;overflow:hidden"
-              allowfullscreen
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            ></iframe>
+            />
           </div>
         </div>
       </div>
     </section>
 
     <ProductShowcase />
-    <section id="visit" class="py-16 bg-[#1a3346]">
-      <div class="container mx-auto px-4">
+    <section id="visit" class="py-12 bg-[#1a3346] text-white">
+      <div class="container mx-auto px-12" >
+        <h2 class="text-4xl font-bold mb-10 text-center">Visítanos en nuestra tienda</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <!-- Columna izquierda: Información de la tienda -->
-          <div>
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">
-              Visítanos en nuestra tienda
-            </h2>
-
+          <!-- Columna izquierda: Información de contacto con iconos en línea -->
+          <div class="flex flex-col items-center space-y-16">
             <!-- Ubicación -->
-            <p class="text-xl mb-2 flex items-center space-x-2">
-              <span class="mr-2 flex-shrink-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 384 512"
-                  class="h-6 w-6 text-white"
-                >
-                  <path
-                    d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
-                    fill="#ffffff"
-                    ></path>
-                </svg>
-              </span>
-              Puerto Tampico #64, Ciudad de México, México
-            </p>
-
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-8 w-8 text-white mr-4 flex-shrink-0">
+                <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" fill="#ffffff"></path>
+              </svg>
+              <p class="text-xl">Puerto Tampico #64, Ciudad de México, México</p>
+            </div>
+    
             <!-- Horario -->
-            <p class="text-xl mb-4 flex items-center space-x-2">
-              <span class="mr-2 flex-shrink-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  class="h-6 w-6"
-                >
-                  <path
-                    fill="#ffffff"
-                    d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z"
-                  ></path>
-                </svg>
-              </span>
-              Lunes a Viernes, 10:00 AM - 8:00 PM
-            </p>
-
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-8 w-8 text-white mr-4 flex-shrink-0">
+                <path fill="#ffffff" d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z"></path>
+              </svg>
+              <p class="text-xl">Lunes a Viernes, 10:00 AM - 8:00 PM</p>
+            </div>
+    
             <!-- Teléfono -->
-            <p class="text-xl mb-8 flex items-center space-x-2">
-              <span class="mr-2 flex-shrink-0">
-                <!-- Phone Icon -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                  class="h-6 w-6"
-                >
-                  <path
-                    fill="#ffffff"
-                    d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"
-                  ></path>
-                </svg>
-              </span>
-              Teléfono: +52 55 6099 6032
-            </p>
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-8 w-8 text-white mr-4 flex-shrink-0">
+                <path fill="#ffffff" d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"></path>
+              </svg>
+              <p class="text-xl">Teléfono: +52 55 6099 6032</p>
+            </div>
           </div>
-
+    
           <!-- Columna derecha: Mapa -->
-          <div
-            class="relative w-full h-96 rounded-lg overflow-hidden shadow-lg border-none"
-          >
+          <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.387203446149!2d-99.07114568468239!3d19.497267886848215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fba9b5ae7a25%3A0x75e23e6eb2ef6d30!2sPto.%20Tampico%2064%2C%20Casas%20Alem%C3%A1n%2C%20Gustavo%20A.%20Madero%2C%2007580%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX%2C%20M%C3%A9xico!5e0!3m2!1ses!2sdo!4v1695481087929!5m2!1ses!2sdo"
-              class="absolute top-0 left-0 w-full h-full border-none"
+              class="w-full h-full border-none"
               allowfullscreen=""
               aria-hidden="false"
-              tabindex="0"
-            >
+              tabindex="0">
             </iframe>
           </div>
         </div>
       </div>
     </section>
   </main>
-
-  <Footer />
 </Layout>
+
+<Footer />
+
+<style>
+  .youtube-facade {
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .youtube-facade::before {
+    content: "\25B6";
+    font-size: 4rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
