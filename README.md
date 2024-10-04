@@ -1,4 +1,4 @@
-<img src="images/logo.png" alt="Logo" width="150"/>
+<img src="images/logo.webp" alt="Logo" width="150"/>
 
 # ADR Collections
 
