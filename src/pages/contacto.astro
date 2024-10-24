@@ -1,0 +1,340 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Contacto - ADR Collections">
+  <Header />
+
+  <main>
+    <section
+      class="bg-gradient-to-b from-[#1e3951] to-[#16334a] text-white py-20 md:py-32 transition-opacity duration-1000 ease-in"
+    >
+      <div class="container mx-auto px-14">
+        <h1 class="text-4xl md:text-6xl font-bold mb-8 text-center">
+          Contáctanos
+        </h1>
+        <p class="text-xl text-center mb-12 max-w-2xl mx-auto">
+          Estamos aquí para ayudarte. Envíanos un mensaje y nos pondremos en
+          contacto contigo lo antes posible.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <!-- Formulario de Contacto -->
+          <div class="bg-white/10 p-8 rounded-lg backdrop-blur-sm">
+            <form
+              action="https://formspree.io/f/xwpkpwaj"
+              method="POST"
+              class="space-y-6"
+              id="contact-form"
+            >
+              <!-- Campos ocultos para personalización -->
+              <input
+                type="hidden"
+                name="_subject"
+                value="Nuevo mensaje de contacto - ADR Collections"
+              />
+              <input
+                type="hidden"
+                name="_autoresponse"
+                value="¡Gracias por contactar con ADR Collections! Hemos recibido tu mensaje y te responderemos lo antes posible."
+              />
+
+              <!-- Mensajes de estado -->
+              <div id="form-status" class="hidden transition-all duration-300">
+                <p
+                  id="success-message"
+                  class="hidden text-green-400 text-center p-4 bg-green-400/10 rounded-lg border border-green-400/20"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 inline-block mr-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.
+                </p>
+                <p
+                  id="error-message"
+                  class="hidden text-red-400 text-center p-4 bg-red-400/10 rounded-lg border border-red-400/20"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 inline-block mr-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.
+                </p>
+              </div>
+
+              <div>
+                <label for="nombre" class="block text-lg mb-2">
+                  Nombre completo <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  required
+                  class="w-full p-3 rounded-lg bg-white/20 border border-white/30 focus:border-white focus:outline-none text-white"
+                  placeholder="Introduce tu nombre completo"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-lg mb-2">
+                  Correo electrónico <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full p-3 rounded-lg bg-white/20 border border-white/30 focus:border-white focus:outline-none text-white"
+                  placeholder="tu@email.com"
+                />
+              </div>
+
+              <div>
+                <label for="telefono" class="block text-lg mb-2">
+                  Teléfono <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  required
+                  class="w-full p-3 rounded-lg bg-white/20 border border-white/30 focus:border-white focus:outline-none text-white"
+                  placeholder="Ej: 55 6099 6032"
+                  maxlength="15"
+                />
+                <p class="text-sm text-white/60 mt-1">Ingresa 10 dígitos</p>
+              </div>
+
+              <div>
+                <label for="mensaje" class="block text-lg mb-2">
+                  Mensaje <span class="text-red-400">*</span>
+                </label>
+                <textarea
+                  id="mensaje"
+                  name="mensaje"
+                  required
+                  rows="4"
+                  class="w-full p-3 rounded-lg bg-white/20 border border-white/30 focus:border-white focus:outline-none text-white resize-none"
+                  placeholder="¿En qué podemos ayudarte?"></textarea>
+              </div>
+
+              <button
+                type="submit"
+                id="submit-button"
+                class="w-full bg-transparent border-2 border-white text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-white hover:text-[#1e3951] transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
+                  ></path>
+                </svg>
+                <span>Enviar mensaje</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Información de Contacto -->
+          <div class="space-y-12">
+            <div class="bg-white/10 p-8 rounded-lg backdrop-blur-sm">
+              <h2 class="text-2xl font-bold mb-6">Información de Contacto</h2>
+
+              <!-- Ubicación -->
+              <div class="flex items-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 384 512"
+                  class="h-6 w-6 text-white mr-4 flex-shrink-0"
+                >
+                  <path
+                    d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+                    fill="#ffffff"></path>
+                </svg>
+                <div>
+                  <h3 class="font-semibold mb-1">Dirección</h3>
+                  <p>Puerto Tampico # 64 Col. Casas Alemán</p>
+                </div>
+              </div>
+
+              <!-- Teléfono -->
+              <div class="flex items-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  class="h-6 w-6 text-white mr-4 flex-shrink-0"
+                >
+                  <path
+                    fill="#ffffff"
+                    d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"
+                  ></path>
+                </svg>
+                <div>
+                  <h3 class="font-semibold mb-1">Teléfono</h3>
+                  <p>+52 55 6099 6032</p>
+                </div>
+              </div>
+
+              <!-- Horario -->
+              <div class="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                  class="h-6 w-6 text-white mr-4 flex-shrink-0"
+                >
+                  <path
+                    fill="#ffffff"
+                    d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z"
+                  ></path>
+                </svg>
+                <div>
+                  <h3 class="font-semibold mb-1">Horario de atención</h3>
+                  <p>Lunes a Viernes, 10:00 AM - 8:00 PM</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mapa -->
+            <div class="bg-white/10 p-8 rounded-lg backdrop-blur-sm">
+              <h2 class="text-2xl font-bold mb-6">Ubicación</h2>
+              <div class="w-full h-64 rounded-lg overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.387203446149!2d-99.07114568468239!3d19.497267886848215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fba9b5ae7a25%3A0x75e23e6eb2ef6d30!2sPto.%20Tampico%2064%2C%20Casas%20Alem%C3%A1n%2C%20Gustavo%20A.%20Madero%2C%2007580%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX%2C%20M%C3%A9xico!5e0!3m2!1ses!2sdo!4v1695481087929!5m2!1ses!2sdo"
+                  class="w-full h-full border-none"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  aria-hidden="false"
+                  title="Ubicación de ADR Collections en Google Maps"
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  input::placeholder,
+  textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const formStatus = document.getElementById('form-status');
+  const successMessage = document.getElementById('success-message');
+  const errorMessage = document.getElementById('error-message');
+  const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+  const phoneInput = document.getElementById('telefono') as HTMLInputElement;
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+          <svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Enviando...
+        `;
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          form.reset();
+          formStatus?.classList.remove('hidden');
+          successMessage?.classList.remove('hidden');
+          errorMessage?.classList.add('hidden');
+        } else {
+          throw new Error('Error en el envío');
+        }
+      } catch (error) {
+        formStatus?.classList.remove('hidden');
+        errorMessage?.classList.remove('hidden');
+        successMessage?.classList.add('hidden');
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+            </svg>
+            <span>Enviar mensaje</span>
+          `;
+        }
+      }
+    });
+  }
+
+// Validación del teléfono
+if (phoneInput) {
+  phoneInput.addEventListener('input', (e) => {
+    const input = e.target as HTMLInputElement;
+    // Solo permitir números y algunos caracteres especiales
+    let value = input.value.replace(/[^\d\s()-]/g, '');
+    
+    // Limitar a 10 dígitos (ignorando caracteres especiales)
+    const digitsOnly = value.replace(/\D/g, '');
+    if (digitsOnly.length > 10) {
+      value = value.slice(0, value.length - 1);
+    }
+    
+    input.value = value;
+  });
+
+  // Permitir borrar normalmente
+  phoneInput.addEventListener('keydown', (e) => {
+    const input = e.target as HTMLInputElement;
+    if (e.key === 'Backspace' || e.key === 'Delete') {
+      return true; // Permitir borrar normalmente
+    }
+  });
+}
+</script>

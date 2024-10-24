@@ -1,54 +1,478 @@
 ---
-const products = [
+interface ProductDetails {
+  material: string;
+  capacidad: string;
+  dimensiones: string;
+  caracteristicas: string[];
+  cuidados: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  details: ProductDetails;
+}
+
+const products: Product[] = [
   {
+    id: 1,
     name: "Taza Artesanal",
     image: "images/tazaDrag.webp",
     description: "Taza hecha a mano por artesanos locales",
+    details: {
+      material: "Cerámica de alta calidad",
+      capacidad: "350ml",
+      dimensiones: "10cm x 8cm",
+      caracteristicas: [
+        "Resistente al microondas",
+        "Apta para lavavajillas",
+        "Diseño exclusivo",
+        "Acabado duradero",
+      ],
+      cuidados: "Lavar con agua tibia y jabón suave",
+    },
   },
   {
+    id: 2,
     name: "Termo de Diseño",
     image: "images/tazasJack.webp",
     description: "Termo con aislamiento térmico de larga duración",
+    details: {
+      material: "Acero inoxidable de grado alimenticio",
+      capacidad: "500ml",
+      dimensiones: "22cm x 7cm",
+      caracteristicas: [
+        "Doble pared aislante",
+        "Mantiene bebidas calientes por 12 horas",
+        "Mantiene bebidas frías por 24 horas",
+        "Tapa hermética",
+      ],
+      cuidados: "No apto para lavavajillas, lavar a mano",
+    },
   },
   {
+    id: 3,
     name: "Termo Bugs Bunny",
     image: "images/termoBugs.webp",
     description: "Termo con aislamiento térmico de larga duración",
+    details: {
+      material: "Acero inoxidable de grado alimenticio",
+      capacidad: "500ml",
+      dimensiones: "22cm x 7cm",
+      caracteristicas: [
+        "Diseño coleccionable",
+        "Doble pared aislante",
+        "Sistema antigoteo",
+        "Acabado premium",
+      ],
+      cuidados: "No apto para lavavajillas, lavar a mano",
+    },
   },
   {
-    name: "Termo de Diseño",
+    id: 4,
+    name: "Termo de Hello Kitty",
     image: "images/termoKitty.webp",
     description: "Termo con aislamiento térmico de larga duración",
+    details: {
+      material: "Acero inoxidable de grado alimenticio",
+      capacidad: "500ml",
+      dimensiones: "22cm x 7cm",
+      caracteristicas: [
+        "Edición especial Hello Kitty",
+        "Doble pared aislante",
+        "Sistema de cierre seguro",
+        "Diseño kawaii",
+      ],
+      cuidados: "No apto para lavavajillas, lavar a mano",
+    },
   },
 ];
 ---
 
 <section id="productos" class="py-16 bg-[#1a3346]">
   <div class="container mx-auto px-12">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Nuestros Productos Destacados</h2>
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
+      Nuestros Productos Destacados
+    </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      {products.map((product) => (
-        <div class="bg-[#15293d] rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col h-full">
-          <div class="w-full h-80 overflow-hidden flex items-center justify-center shadow-md">
-            <img 
-              src={product.image} 
-              alt={product.name} 
-              class="w-full h-full object-contain bg-white transition-transform duration-300 hover:scale-110"
+      {
+        products.map((product) => (
+          <div class="bg-[#15293d] rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col h-full">
+            <div class="w-full h-80 overflow-hidden flex items-center justify-center shadow-md">
+              <img
+                src={product.image}
+                alt={product.name}
+                class="w-full h-full object-contain bg-white transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+              <h3 class="text-xl font-semibold mb-2 text-white">
+                {product.name}
+              </h3>
+              <p class="text-gray-300 mb-4 flex-grow">{product.description}</p>
+              <button
+                class="inline-block bg-[#1e3951] text-white py-2 px-4 rounded-full hover:bg-[#2c5474] transition duration-300 text-center"
+                data-product-id={product.id}
+              >
+                Ver Detalles
+              </button>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Modal de Detalles -->
+  <div
+    id="productModal"
+    class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+  >
+    <div
+      class="bg-[#15293d] rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+    >
+      <div class="p-4 md:p-6">
+        <!-- Header del Modal -->
+        <div class="flex justify-between items-start mb-6">
+          <h2 id="modalTitle" class="text-2xl md:text-3xl font-bold text-white">
+          </h2>
+          <button
+            id="closeModalBtn"
+            class="text-gray-400 hover:text-white transition-colors p-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Contenido del Modal -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Columna de Imagen -->
+          <div
+            class="bg-white rounded-lg p-4 flex items-center justify-center h-[300px] md:h-[400px]"
+          >
+            <img
+              id="modalImage"
+              src=""
+              alt=""
+              class="w-full h-full object-contain"
             />
           </div>
-          <div class="p-6 flex flex-col flex-grow">
-            <h3 class="text-xl font-semibold mb-2">{product.name}</h3>
-            <p class="text-gray-300 mb-4 flex-grow">{product.description}</p>
-            <a 
-              href="#" 
-              class="inline-block bg-[#1e3951] text-white py-2 px-4 rounded-full hover:bg-[#2c5474] transition duration-300 text-center"
-            >
-              Ver Detalles
-            </a>
+
+          <!-- Columna de Detalles -->
+          <div class="text-white space-y-6">
+            <!-- Especificaciones -->
+            <div>
+              <h3 class="text-xl font-semibold mb-3">Especificaciones</h3>
+              <div id="modalSpecs" class="space-y-2 text-gray-300"></div>
+            </div>
+
+            <!-- Características -->
+            <div>
+              <h3 class="text-xl font-semibold mb-3">Características</h3>
+              <ul
+                id="modalFeatures"
+                class="list-disc list-inside space-y-1 text-gray-300"
+              >
+              </ul>
+            </div>
+
+            <!-- Cuidados -->
+            <div>
+              <h3 class="text-xl font-semibold mb-3">Cuidados</h3>
+              <p id="modalCare" class="text-gray-300"></p>
+            </div>
           </div>
         </div>
-      ))}
+      </div>
     </div>
   </div>
 </section>
 
+<!-- Modal de Detalles -->
+<div
+  id="productModal"
+  class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center px-4"
+>
+  <div
+    class="bg-[#15293d] rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+  >
+    <div class="p-6 md:p-8">
+      <div class="flex justify-between items-start mb-6">
+        <h2 id="modalTitle" class="text-2xl md:text-3xl font-bold text-white">
+        </h2>
+        <button
+          id="closeModalBtn"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-lg p-4">
+          <img
+            id="modalImage"
+            src=""
+            alt=""
+            class="w-full h-auto object-contain"
+          />
+        </div>
+
+        <div class="text-white">
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2">Especificaciones</h3>
+            <div id="modalSpecs" class="space-y-2"></div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2">Características</h3>
+            <ul
+              id="modalFeatures"
+              class="list-disc list-inside space-y-1 text-gray-300"
+            >
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Cuidados</h3>
+            <p id="modalCare" class="text-gray-300"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Estilo para la barra de desplazamiento del modal */
+  #productModal > div {
+    scrollbar-width: thin;
+    scrollbar-color: #2c5474 #15293d;
+  }
+
+  #productModal > div::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #productModal > div::-webkit-scrollbar-track {
+    background: #15293d;
+  }
+
+  #productModal > div::-webkit-scrollbar-thumb {
+    background-color: #2c5474;
+    border-radius: 4px;
+  }
+
+  /* Animación para el modal */
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .modal-animate {
+    animation: modalFadeIn 0.3s ease-out;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const productsData = [
+      {
+        id: 1,
+        name: "Taza Artesanal",
+        image: "images/tazaDrag.webp",
+        description: "Taza hecha a mano por artesanos locales",
+        details: {
+          material: "Cerámica de alta calidad",
+          capacidad: "350ml",
+          dimensiones: "10cm x 8cm",
+          caracteristicas: [
+            "Resistente al microondas",
+            "Apta para lavavajillas",
+            "Diseño exclusivo",
+            "Acabado duradero",
+          ],
+          cuidados: "Lavar con agua tibia y jabón suave",
+        },
+      },
+      {
+        id: 2,
+        name: "Termo de Diseño",
+        image: "images/tazasJack.webp",
+        description: "Termo con aislamiento térmico de larga duración",
+        details: {
+          material: "Acero inoxidable de grado alimenticio",
+          capacidad: "500ml",
+          dimensiones: "22cm x 7cm",
+          caracteristicas: [
+            "Doble pared aislante",
+            "Mantiene bebidas calientes por 12 horas",
+            "Mantiene bebidas frías por 24 horas",
+            "Tapa hermética",
+          ],
+          cuidados: "No apto para lavavajillas, lavar a mano",
+        },
+      },
+      {
+        id: 3,
+        name: "Termo Bugs Bunny",
+        image: "images/termoBugs.webp",
+        description: "Termo con aislamiento térmico de larga duración",
+        details: {
+          material: "Acero inoxidable de grado alimenticio",
+          capacidad: "500ml",
+          dimensiones: "22cm x 7cm",
+          caracteristicas: [
+            "Diseño coleccionable",
+            "Doble pared aislante",
+            "Sistema antigoteo",
+            "Acabado premium",
+          ],
+          cuidados: "No apto para lavavajillas, lavar a mano",
+        },
+      },
+      {
+        id: 4,
+        name: "Termo de Hello Kitty",
+        image: "images/termoKitty.webp",
+        description: "Termo con aislamiento térmico de larga duración",
+        details: {
+          material: "Acero inoxidable de grado alimenticio",
+          capacidad: "500ml",
+          dimensiones: "22cm x 7cm",
+          caracteristicas: [
+            "Edición especial Hello Kitty",
+            "Doble pared aislante",
+            "Sistema de cierre seguro",
+            "Diseño kawaii",
+          ],
+          cuidados: "No apto para lavavajillas, lavar a mano",
+        },
+      },
+    ];
+
+    // Función para mostrar detalles del producto
+    function showProductDetails(productId) {
+      const product = productsData.find((p) => p.id === productId);
+      if (!product) return;
+
+      const modal = document.getElementById("productModal");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalImage = document.getElementById("modalImage");
+      const modalSpecs = document.getElementById("modalSpecs");
+      const modalFeatures = document.getElementById("modalFeatures");
+      const modalCare = document.getElementById("modalCare");
+
+      if (
+        modal &&
+        modalTitle &&
+        modalImage &&
+        modalSpecs &&
+        modalFeatures &&
+        modalCare
+      ) {
+        // Actualizar contenido del modal
+        modalTitle.textContent = product.name;
+        modalImage.src = product.image;
+        modalImage.alt = product.name;
+
+        // Especificaciones
+        modalSpecs.innerHTML = `
+      <div class="grid gap-2">
+        <p><span class="font-semibold">Material:</span> ${product.details.material}</p>
+        <p><span class="font-semibold">Capacidad:</span> ${product.details.capacidad}</p>
+        <p><span class="font-semibold">Dimensiones:</span> ${product.details.dimensiones}</p>
+      </div>
+    `;
+
+        // Características
+        modalFeatures.innerHTML = product.details.caracteristicas
+          .map(
+            (feature) => `<li class="flex items-start space-x-2">
+        <span class="text-white/70">•</span>
+        <span>${feature}</span>
+      </li>`
+          )
+          .join("");
+
+        // Cuidados
+        modalCare.textContent = product.details.cuidados;
+
+        // Mostrar modal
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    // Event delegation para los botones
+    document.addEventListener("click", (e) => {
+      const button = e.target.closest("button[data-product-id]");
+      if (button) {
+        const productId = parseInt(button.dataset.productId);
+        showProductDetails(productId);
+      }
+    });
+
+    // Función para cerrar el modal
+    function closeModal() {
+      const modal = document.getElementById("productModal");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        document.body.style.overflow = "auto";
+      }
+    }
+
+    // Event listener para el botón de cerrar
+    document
+      .getElementById("closeModalBtn")
+      ?.addEventListener("click", closeModal);
+
+    // Event listener para cerrar al hacer clic fuera del modal
+    document.getElementById("productModal")?.addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) {
+        closeModal();
+      }
+    });
+
+    // Event listener para cerrar con la tecla Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    });
+  });
+</script>
