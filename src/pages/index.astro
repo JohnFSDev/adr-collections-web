@@ -182,7 +182,7 @@ import { YouTube } from "@astro-community/astro-embed-youtube";
 
     <!-- ProductShowcase Component -->
     <!-- VERIFICAR PORQUÉ CLIENT LOAD CAUSA ERROR AL HACER BUILD -->
-    <ProductShowcase/>
+    <ProductShowcase />
 
     <!-- Nueva Sección: Testimonios -->
     <section class="bg-[#16334a] py-16">
@@ -197,13 +197,17 @@ import { YouTube } from "@astro-community/astro-embed-youtube";
           >
             <div class="absolute -top-4 right-4 text-6xl text-white/20">"</div>
             <p class="mb-4 relative z-10">
-              Excelente calidad en todos sus productos. La atención fue
-              extraordinaria y el envío llegó en perfectas condiciones.
+              Me encantó el termo que adquirí, la calidad está genial, seguiré
+              comprando más cosas que me gustaron.
             </p>
             <div class="flex items-center">
-              <div class="w-12 h-12 bg-white/20 rounded-full mr-4"></div>
+              <img
+                src="images/angello.webp"
+                alt="Angello Gustav Ram"
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
               <div>
-                <h4 class="font-semibold">María González</h4>
+                <h4 class="font-semibold">Angello Gustav Ram</h4>
                 <p class="text-sm text-white/70">Cliente Verificado</p>
               </div>
             </div>
@@ -215,13 +219,18 @@ import { YouTube } from "@astro-community/astro-embed-youtube";
           >
             <div class="absolute -top-4 right-4 text-6xl text-white/20">"</div>
             <p class="mb-4 relative z-10">
-              Los muebles son exactamente como se ven en las fotos. El servicio
-              de asesoría me ayudó mucho a elegir lo mejor.
+              Excelente calidad y servicio, además que su servicio a domicilio
+              me facilito más mi compra. Están muy bonitos los duos que compre,
+              me encantaron!
             </p>
             <div class="flex items-center">
-              <div class="w-12 h-12 bg-white/20 rounded-full mr-4"></div>
+              <img
+                src="images/carolina.webp"
+                alt="Carolina Estrada"
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
               <div>
-                <h4 class="font-semibold">Carlos Ramírez</h4>
+                <h4 class="font-semibold">Carolina Estrada</h4>
                 <p class="text-sm text-white/70">Cliente Verificado</p>
               </div>
             </div>
@@ -233,13 +242,17 @@ import { YouTube } from "@astro-community/astro-embed-youtube";
           >
             <div class="absolute -top-4 right-4 text-6xl text-white/20">"</div>
             <p class="mb-4 relative z-10">
-              Increíble variedad de productos y excelentes precios.
-              Definitivamente volveré a comprar aquí.
+              Recomendar la compra con ellos, siempre atentos. Confiables y los
+              productos de buena calidad. Mi vaso me encanto.
             </p>
             <div class="flex items-center">
-              <div class="w-12 h-12 bg-white/20 rounded-full mr-4"></div>
+              <img
+                src="images/ireri.webp"
+                alt="Ireri Perez"
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
               <div>
-                <h4 class="font-semibold">Ana Martínez</h4>
+                <h4 class="font-semibold">Ireri Perez</h4>
                 <p class="text-sm text-white/70">Cliente Verificado</p>
               </div>
             </div>
@@ -416,54 +429,58 @@ import { YouTube } from "@astro-community/astro-embed-youtube";
       }
     </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Animación de scroll suave
-    const smoothScrollLinks = document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
-    if (smoothScrollLinks) {
-      smoothScrollLinks.forEach((anchor) => {
-        anchor.addEventListener("click", function(event: Event) {
-          event.preventDefault();
-          const targetId = this.getAttribute("href");
-          if (targetId) {
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              targetElement.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-            }
-          }
-        });
-      });
-    }
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Animación de scroll suave
+        const smoothScrollLinks =
+          document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
+        if (smoothScrollLinks) {
+          smoothScrollLinks.forEach((anchor) => {
+            anchor.addEventListener("click", function (event: Event) {
+              event.preventDefault();
+              const targetId = this.getAttribute("href");
+              if (targetId) {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                  targetElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }
+              }
+            });
+          });
+        }
 
-    // Configuración del Intersection Observer para animaciones
-    const setupAnimations = () => {
-      const animateElements = document.querySelectorAll<HTMLElement>("[data-animate]");
-      if (animateElements.length > 0) {
-        const observerOptions = {
-          root: null,
-          rootMargin: "0px",
-          threshold: 0.1,
+        // Configuración del Intersection Observer para animaciones
+        const setupAnimations = () => {
+          const animateElements =
+            document.querySelectorAll<HTMLElement>("[data-animate]");
+          if (animateElements.length > 0) {
+            const observerOptions = {
+              root: null,
+              rootMargin: "0px",
+              threshold: 0.1,
+            };
+
+            const animationObserver = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  animationObserver.unobserve(entry.target);
+                }
+              });
+            }, observerOptions);
+
+            animateElements.forEach((element) =>
+              animationObserver.observe(element)
+            );
+          }
         };
 
-        const animationObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              animationObserver.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
-
-        animateElements.forEach((element) => animationObserver.observe(element));
-      }
-    };
-
-    // Iniciar animaciones
-    setupAnimations();
-  });
-</script>
+        // Iniciar animaciones
+        setupAnimations();
+      });
+    </script>
   </main>
 </Layout>

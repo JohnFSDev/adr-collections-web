@@ -329,9 +329,7 @@ if (phoneInput) {
     input.value = value;
   });
 
-  // Permitir borrar normalmente
   phoneInput.addEventListener('keydown', (e) => {
-    const input = e.target as HTMLInputElement;
     if (e.key === 'Backspace' || e.key === 'Delete') {
       return true; // Permitir borrar normalmente
     }
