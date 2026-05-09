@@ -1,0 +1,187 @@
+---
+const {
+  videoId,
+  playLabel = "Reproducir video",
+  poster,
+  title = "Video de YouTube",
+  class: className = "",
+} = Astro.props;
+
+if (!videoId) {
+  throw new Error("LiteYoutube requiere la propiedad videoId.");
+}
+
+const posterUrl = poster || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+---
+<div class={`lite-youtube-wrapper ${className}`}>
+  <lite-youtube
+    videoid={videoId}
+    playlabel={playLabel}
+    title={title}
+    style={`background-image: url('${posterUrl}');`}
+    class="lite-youtube"
+    aria-label={playLabel}
+  >
+    <button type="button" class="lty-playbtn">
+      <span class="lyt-visually-hidden">{playLabel}</span>
+    </button>
+  </lite-youtube>
+</div>
+
+<style is:inline>
+.lite-youtube-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+}
+
+.lite-youtube {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  background-color: #000;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  overflow: hidden;
+  contain: content;
+  border-radius: inherit;
+}
+
+.lite-youtube::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.lty-playbtn {
+  width: 68px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background-color: rgba(33, 33, 33, 0.85);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.lite-youtube:hover .lty-playbtn {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.lty-playbtn::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 16px solid #fff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.lite-youtube.lty-activated {
+  cursor: default;
+}
+
+.lite-youtube.lty-activated::before {
+  display: none;
+}
+
+.lite-youtube.lty-activated .lty-playbtn {
+  display: none;
+}
+
+.lite-youtube iframe {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.lyt-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+</style>
+
+<script is:inline>
+if (typeof window !== "undefined" && !window.customElements.get("lite-youtube")) {
+  class LiteYTEmbed extends HTMLElement {
+    connectedCallback() {
+      this.addEventListener(
+        "pointerover",
+        () => LiteYTEmbed.warmConnections(),
+        { once: true },
+      );
+
+      this.addEventListener("click", () => this.addIframe());
+    }
+
+    static warmConnections() {
+      if (LiteYTEmbed.preconnected) return;
+      [
+        "https://www.youtube-nocookie.com",
+        "https://www.google.com",
+      ].forEach((url) => {
+        const link = document.createElement("link");
+        link.rel = "preconnect";
+        link.href = url;
+        document.head.append(link);
+      });
+      LiteYTEmbed.preconnected = true;
+    }
+
+    addIframe() {
+      if (this.classList.contains("lyt-activated")) return;
+      const videoId = this.getAttribute("videoid");
+      if (!videoId) return;
+
+      const iframeEl = document.createElement("iframe");
+      iframeEl.width = "560";
+      iframeEl.height = "315";
+      iframeEl.style.width = "100%";
+      iframeEl.style.height = "100%";
+      iframeEl.title = this.getAttribute("playlabel") || "Video de YouTube";
+      iframeEl.allow =
+        "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+      iframeEl.allowFullscreen = true;
+      iframeEl.loading = "lazy";
+      iframeEl.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+
+      const button = this.querySelector(".lty-playbtn");
+      if (button) {
+        button.style.display = "none";
+      }
+
+      const existingIframe = this.querySelector("iframe");
+      if (existingIframe) return;
+
+      this.append(iframeEl);
+      this.classList.add("lyt-activated");
+    }
+  }
+
+  window.customElements.define("lite-youtube", LiteYTEmbed);
+}
+</script>
